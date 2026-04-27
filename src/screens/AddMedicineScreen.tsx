@@ -15,8 +15,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Medicine, TimeOfDay, TIME_LABELS, TIME_DISPLAY, MEDICINE_COLORS } from '../types';
 import { addMedicine } from '../storage/storage';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+
+const generateId = (): string =>
+  `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 9)}`;
 
 const TIMES: TimeOfDay[] = ['morning', 'afternoon', 'evening', 'night'];
 
@@ -52,7 +53,7 @@ export default function AddMedicineScreen() {
     setSaving(true);
     try {
       const medicine: Medicine = {
-        id: uuidv4(),
+        id: generateId(),
         name: name.trim(),
         dosage: dosage.trim(),
         notes: notes.trim(),
